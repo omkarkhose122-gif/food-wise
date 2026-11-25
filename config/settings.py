@@ -26,6 +26,7 @@ DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
+    '.onrender.com',
 ]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get(
@@ -35,7 +36,9 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get(
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+]
 
 if RENDER_EXTERNAL_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(
@@ -113,11 +116,8 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-
                 'django.template.context_processors.request',
-
                 'django.contrib.auth.context_processors.auth',
-
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -140,8 +140,6 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
 
-    # Render PostgreSQL Database
-
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
@@ -151,8 +149,6 @@ if DATABASE_URL:
     }
 
 else:
-
-    # Local MySQL Database
 
     DATABASES = {
         'default': {
@@ -177,15 +173,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
-
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
-
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
@@ -219,7 +212,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # ==========================================
-# FILE STORAGE CONFIGURATION
+# STORAGE CONFIGURATION
 # ==========================================
 
 STORAGES = {
