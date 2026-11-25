@@ -1,0 +1,319 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ restaurant.name }} Menu | FoodWise-AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f5;
+            color: #222;
+        }
+
+        header {
+            background: #172b24;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: #ffbd59;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #173c2d, #397c52);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .container {
+            padding: 40px 7%;
+        }
+
+        .filters {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        input, select {
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .filter-btn {
+            padding: 13px 22px;
+            background: #267348;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .reset-btn {
+            padding: 13px 20px;
+            background: #eee;
+            color: #333;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(240px, 1fr)
+            );
+            gap: 25px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #00000012;
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .food-card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .food-content {
+            padding: 20px;
+        }
+
+        .food-content h3 {
+            color: #267348;
+            margin-bottom: 12px;
+        }
+
+        .food-content p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .price {
+            font-size: 21px;
+            font-weight: bold;
+            color: #172b24 !important;
+        }
+
+        .veg {
+            color: green !important;
+            font-weight: bold;
+        }
+
+        .nonveg {
+            color: #d62828 !important;
+            font-weight: bold;
+        }
+
+        .empty {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #267348;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #172b24;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters input,
+            .filters select,
+            .filters button,
+            .filters a {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>FoodWise-AI</h2>
+    <a href="{% url 'restaurant_list' %}">← Restaurants</a>
+</header>
+
+<section class="hero">
+    <h1>{{ restaurant.name }}</h1>
+    <p>{{ restaurant.description }}</p>
+    <p>📍 {{ restaurant.address }}</p>
+</section>
+
+<main class="container">
+
+    <a href="{% url 'restaurant_list' %}" class="back">
+        ← Back to Restaurants
+    </a>
+
+    <h2 style="margin-bottom: 20px;">Explore Our Menu</h2>
+
+    <!-- FILTER FORM -->
+    <form method="GET" class="filters">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search food..."
+            value="{{ search }}"
+        >
+
+        <select name="category">
+            <option value="">All Categories</option>
+
+            {% for cat in categories %}
+                <option value="{{ cat }}"
+                    {% if selected_category == cat %}selected{% endif %}>
+                    {{ cat }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="food_type">
+            <option value="">All Food</option>
+
+            <option value="veg"
+                {% if selected_type == 'veg' %}selected{% endif %}>
+                Vegetarian
+            </option>
+
+            <option value="nonveg"
+                {% if selected_type == 'nonveg' %}selected{% endif %}>
+                Non-Vegetarian
+            </option>
+        </select>
+
+        <button type="submit" class="filter-btn">
+            Search / Filter
+        </button>
+
+        <a href="{% url 'restaurant_menu' restaurant.id %}"
+           class="reset-btn">
+            Reset
+        </a>
+
+    </form>
+
+    <!-- FOOD ITEMS -->
+    <div class="food-grid">
+
+        {% for item in food_items %}
+
+        <div class="food-card">
+
+            {% if item.image %}
+                <img src="{{ item.image.url }}"
+                     alt="{{ item.name }}">
+            {% endif %}
+
+            <div class="food-content">
+
+                <h3>{{ item.name }}</h3>
+
+                <p>{{ item.description }}</p>
+
+                <p>Category: {{ item.category }}</p>
+
+                <p>🔥 {{ item.calories }} Calories</p>
+
+                {% if item.is_vegetarian %}
+                    <p class="veg">🟢 Vegetarian</p>
+                {% else %}
+                    <p class="nonveg">🔴 Non-Vegetarian</p>
+                {% endif %}
+
+                <p class="price">₹{{ item.price }}</p>
+
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty">
+            <h3>No Food Items Found!</h3>
+            <p>Try changing your search or filters.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 FoodWise-AI | Smart Food Discovery Platform</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,413 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodWise-AI | Restaurants & Menu</title>
+
+    <link rel="stylesheet" href="{% static 'foodwise/css/style.css' %}">
+
+    <style>
+        .menu-section {
+            padding: 50px 7%;
+        }
+
+        .menu-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .menu-heading h1 {
+            color: #176b3a;
+            font-size: 36px;
+        }
+
+        .menu-heading p {
+            color: #758078;
+            margin-top: 10px;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 25px auto 40px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #dce6de;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .search-box input:focus {
+            border-color: #198754;
+        }
+
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            border: 1px solid #edf2ee;
+            transition: 0.3s;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .restaurant-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .restaurant-info {
+            padding: 22px;
+        }
+
+        .restaurant-info h2 {
+            color: #176b3a;
+            font-size: 21px;
+        }
+
+        .restaurant-info p {
+            color: #758078;
+            margin: 10px 0 18px;
+            font-size: 14px;
+        }
+
+        .restaurant-info button {
+            background: #198754;
+            color: white;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .restaurant-info button:hover {
+            background: #116b40;
+        }
+
+        .food-menu {
+            display: none;
+            padding: 18px 22px;
+            background: #f3faf5;
+            border-top: 1px solid #e1eee4;
+        }
+
+        .food-menu.show {
+            display: block;
+        }
+
+        .food-menu h3 {
+            color: #176b3a;
+            margin-bottom: 12px;
+        }
+
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #dce9df;
+            font-size: 14px;
+        }
+
+        .food-item:last-child {
+            border-bottom: none;
+        }
+
+        .food-item span:last-child {
+            color: #198754;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: #758078;
+            padding: 30px;
+        }
+
+        @media(max-width: 900px) {
+            .restaurant-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-heading h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+
+    <div class="logo">
+        🥗 FoodWise<span>-AI</span>
+    </div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'menu' %}">Restaurants</a>
+        <a href="{% url 'calorie_calculator' %}">Calories</a>
+        <a href="{% url 'recommendations' %}">AI Diet Planner</a>
+        <a href="{% url 'nutrition' %}">Nutrition</a>
+    </nav>
+
+</header>
+
+<!-- RESTAURANT SECTION -->
+<section class="menu-section">
+
+    <div class="menu-heading">
+        <h1>Explore Restaurants 🍽️</h1>
+
+        <p>
+            Discover delicious food and explore restaurant menus
+            with FoodWise-AI.
+        </p>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input
+            type="text"
+            id="restaurantSearch"
+            placeholder="Search restaurants or food..."
+            onkeyup="searchRestaurants()"
+        >
+    </div>
+
+    <!-- RESTAURANT CARDS -->
+    <div class="restaurant-grid" id="restaurantGrid">
+
+        <!-- RESTAURANT 1 -->
+        <div class="restaurant-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800"
+                alt="Restaurant">
+
+            <div class="restaurant-info">
+
+                <h2>Green Leaf Restaurant</h2>
+
+                <p>Healthy meals • Indian cuisine • Vegetarian</p>
+
+                <button onclick="toggleMenu(this)">
+                    View Menu →
+                </button>
+
+            </div>
+
+            <div class="food-menu">
+
+                <h3>Available Menu</h3>
+
+                <div class="food-item">
+                    <span>Vegetable Salad</span>
+                    <span>₹120</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Paneer Tikka</span>
+                    <span>₹180</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Veg Biryani</span>
+                    <span>₹160</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Fresh Fruit Bowl</span>
+                    <span>₹100</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RESTAURANT 2 -->
+        <div class="restaurant-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800"
+                alt="Restaurant">
+
+            <div class="restaurant-info">
+
+                <h2>Spice Garden</h2>
+
+                <p>Indian cuisine • Traditional food</p>
+
+                <button onclick="toggleMenu(this)">
+                    View Menu →
+                </button>
+
+            </div>
+
+            <div class="food-menu">
+
+                <h3>Available Menu</h3>
+
+                <div class="food-item">
+                    <span>Masala Dosa</span>
+                    <span>₹90</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Paneer Butter Masala</span>
+                    <span>₹190</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Dal Khichdi</span>
+                    <span>₹130</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Veg Thali</span>
+                    <span>₹170</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RESTAURANT 3 -->
+        <div class="restaurant-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800"
+                alt="Restaurant">
+
+            <div class="restaurant-info">
+
+                <h2>Fresh Bite Cafe</h2>
+
+                <p>Healthy food • Snacks • Fresh juices</p>
+
+                <button onclick="toggleMenu(this)">
+                    View Menu →
+                </button>
+
+            </div>
+
+            <div class="food-menu">
+
+                <h3>Available Menu</h3>
+
+                <div class="food-item">
+                    <span>Fruit Smoothie</span>
+                    <span>₹110</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Grilled Sandwich</span>
+                    <span>₹130</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Oats Bowl</span>
+                    <span>₹140</span>
+                </div>
+
+                <div class="food-item">
+                    <span>Fresh Orange Juice</span>
+                    <span>₹80</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="no-results" id="noResults">
+        No restaurants or food items found.
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <h2>FoodWise-AI</h2>
+    <p>Eat Healthy. Stay Fit. Live Better.</p>
+    <p>© 2026 FoodWise-AI. All Rights Reserved.</p>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+
+function toggleMenu(button) {
+
+    const menu = button.closest('.restaurant-card')
+                       .querySelector('.food-menu');
+
+    menu.classList.toggle('show');
+
+    button.textContent = menu.classList.contains('show')
+        ? 'Hide Menu ↑'
+        : 'View Menu →';
+}
+
+function searchRestaurants() {
+
+    const searchValue = document
+        .getElementById('restaurantSearch')
+        .value.toLowerCase();
+
+    const cards = document.querySelectorAll('.restaurant-card');
+
+    let found = 0;
+
+    cards.forEach(card => {
+
+        const content = card.textContent.toLowerCase();
+
+        if (content.includes(searchValue)) {
+            card.style.display = 'block';
+            found++;
+        } else {
+            card.style.display = 'none';
+        }
+
+    });
+
+    document.getElementById('noResults').style.display =
+        found === 0 ? 'block' : 'none';
+}
+
+</script>
+
+</body>
+</html>

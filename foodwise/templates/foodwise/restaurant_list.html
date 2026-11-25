@@ -1,0 +1,102 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Restaurants | FoodWise-AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f5;
+            margin: 0;
+        }
+
+        header {
+            background: #172b24;
+            color: white;
+            padding: 22px 7%;
+        }
+
+        header a {
+            color: #ffbd59;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 35px 7%;
+        }
+
+        .restaurants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px #0002;
+        }
+
+        .card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #267348;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>FoodWise-AI</h2>
+    <a href="/">Home</a>
+</header>
+
+<div class="container">
+    <h1>Explore Restaurants</h1>
+
+    <div class="restaurants">
+        {% for restaurant in restaurants %}
+        <div class="card">
+
+            {% if restaurant.image %}
+                <img src="{{ restaurant.image.url }}"
+                     alt="{{ restaurant.name }}">
+            {% endif %}
+
+            <div class="content">
+                <h2>{{ restaurant.name }}</h2>
+                <p>{{ restaurant.city }}</p>
+                <p>{{ restaurant.address }}</p>
+
+                <a class="btn"
+                   href="{% url 'restaurant_menu' restaurant.id %}">
+                    View Menu
+                </a>
+            </div>
+        </div>
+        {% empty %}
+            <p>No restaurants added yet. Add restaurants through Django Admin.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

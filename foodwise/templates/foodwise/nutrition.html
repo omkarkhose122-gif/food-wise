@@ -1,0 +1,288 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Nutrition | FoodWise-AI</title>
+    <link rel="stylesheet" href="{% static 'foodwise/css/style.css' %}">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f4f8f3;
+            font-family: Arial, sans-serif;
+            color: #26352a;
+        }
+
+        .navbar {
+            background: #176b3a;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 8px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            color: #176b3a;
+            font-size: 34px;
+        }
+
+        .search-box {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 25px auto;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #176b3a;
+            color: white;
+        }
+
+        tr:hover {
+            background: #edf7ee;
+        }
+
+        .food-name {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .note {
+            margin-top: 25px;
+            background: #e8f5e9;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        @media(max-width: 700px) {
+            .heading h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">FoodWise-AI</a>
+    <div>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'menu' %}">Restaurants</a>
+        <a href="{% url 'calorie_calculator' %}">Calorie Calculator</a>
+        <a href="{% url 'recommendations' %}">Diet Planner</a>
+        <a href="{% url 'nutrition' %}">Nutrition</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <div class="heading">
+        <h1>Food Nutrition Guide</h1>
+        <p>Explore the approximate nutritional values of common foods.</p>
+    </div>
+
+    <input
+        type="text"
+        id="foodSearch"
+        class="search-box"
+        placeholder="Search food items..."
+        onkeyup="searchFood()"
+    >
+
+    <div class="table-wrapper">
+        <table id="nutritionTable">
+            <thead>
+                <tr>
+                    <th>Food Item</th>
+                    <th>Calories (kcal)</th>
+                    <th>Protein (g)</th>
+                    <th>Carbohydrates (g)</th>
+                    <th>Fat (g)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="food-name">Apple (100 g)</td>
+                    <td>52</td>
+                    <td>0.3</td>
+                    <td>13.8</td>
+                    <td>0.2</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Banana (100 g)</td>
+                    <td>89</td>
+                    <td>1.1</td>
+                    <td>22.8</td>
+                    <td>0.3</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Cooked Rice (100 g)</td>
+                    <td>130</td>
+                    <td>2.7</td>
+                    <td>28.2</td>
+                    <td>0.3</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Boiled Egg (100 g)</td>
+                    <td>155</td>
+                    <td>12.6</td>
+                    <td>1.1</td>
+                    <td>10.6</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Milk (100 ml)</td>
+                    <td>61</td>
+                    <td>3.2</td>
+                    <td>4.8</td>
+                    <td>3.3</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Almonds (100 g)</td>
+                    <td>579</td>
+                    <td>21.2</td>
+                    <td>21.6</td>
+                    <td>49.9</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Paneer (100 g)</td>
+                    <td>265</td>
+                    <td>18.3</td>
+                    <td>1.2</td>
+                    <td>20.8</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Cooked Lentils (100 g)</td>
+                    <td>116</td>
+                    <td>9.0</td>
+                    <td>20.1</td>
+                    <td>0.4</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Potato (100 g)</td>
+                    <td>87</td>
+                    <td>1.9</td>
+                    <td>20.1</td>
+                    <td>0.1</td>
+                </tr>
+
+                <tr>
+                    <td class="food-name">Oats (100 g, dry)</td>
+                    <td>389</td>
+                    <td>16.9</td>
+                    <td>66.3</td>
+                    <td>6.9</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="no-results" id="noResults">
+            No matching food items found.
+        </p>
+    </div>
+
+    <div class="note">
+        <strong>Nutrition note:</strong> Values are approximate and can vary by
+        food variety, brand, cooking method and preparation. Serving sizes are
+        shown beside each food item.
+    </div>
+
+</main>
+
+<script>
+    function searchFood() {
+        const input = document.getElementById("foodSearch");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("nutritionTable");
+        const rows = table.getElementsByTagName("tbody")[0]
+                          .getElementsByTagName("tr");
+
+        let visibleCount = 0;
+
+        for (let i = 0; i < rows.length; i++) {
+            const foodName = rows[i].getElementsByTagName("td")[0]
+                                   .textContent.toLowerCase();
+
+            if (foodName.includes(filter)) {
+                rows[i].style.display = "";
+                visibleCount++;
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+
+        document.getElementById("noResults").style.display =
+            visibleCount === 0 ? "block" : "none";
+    }
+</script>
+
+</body>
+</html>

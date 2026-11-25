@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ food.name }} | FoodWise-AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #222;
+        }
+
+        .navbar {
+            background: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            color: #e85d04;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .food-card {
+            background: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .food-image {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 380px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            color: #777;
+        }
+
+        .food-details {
+            padding: 15px 0;
+        }
+
+        .food-details h1 {
+            font-size: 32px;
+            color: #e85d04;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: bold;
+            color: #16803c;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            line-height: 1.5;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .veg {
+            color: #16803c;
+            font-weight: bold;
+        }
+
+        .nonveg {
+            color: #d62828;
+            font-weight: bold;
+        }
+
+        .restaurant-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #e85d04;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #e85d04;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 25px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #c44d00;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+        }
+
+        @media(max-width: 750px) {
+            .food-card {
+                grid-template-columns: 1fr;
+            }
+
+            .food-image, .no-image {
+                height: 260px;
+            }
+
+            .navbar {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .navbar a {
+                margin-left: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">🍽 FoodWise-AI</div>
+
+        <div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'restaurant_list' %}">Restaurants</a>
+            <a href="{% url 'food_search' %}">Food Search</a>
+        </div>
+    </nav>
+
+    <!-- FOOD DETAILS -->
+    <div class="container">
+
+        <div class="food-card">
+
+            <div>
+                {% if food.image %}
+                    <img
+                        src="{{ food.image.url }}"
+                        alt="{{ food.name }}"
+                        class="food-image"
+                    >
+                {% else %}
+                    <div class="no-image">
+                        No Food Image Available
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="food-details">
+
+                <h1>{{ food.name }}</h1>
+
+                <p class="description">
+                    {{ food.description|default:"A delicious food item." }}
+                </p>
+
+                <div class="price">
+                    ₹{{ food.price }}
+                </div>
+
+                <div class="info">
+                    <span class="label">Restaurant:</span>
+                    {{ food.restaurant.name }}
+                </div>
+
+                <div class="info">
+                    <span class="label">Category:</span>
+                    {{ food.category }}
+                </div>
+
+                <div class="info">
+                    <span class="label">Calories:</span>
+                    {{ food.calories }} kcal
+                </div>
+
+                <div class="info">
+                    <span class="label">Food Type:</span>
+
+                    {% if food.is_vegetarian %}
+                        <span class="veg">🟢 Vegetarian</span>
+                    {% else %}
+                        <span class="nonveg">🔴 Non-Vegetarian</span>
+                    {% endif %}
+                </div>
+
+                <a
+                    href="{% url 'restaurant_menu' food.restaurant.id %}"
+                    class="restaurant-link"
+                >
+                    View Restaurant Menu →
+                </a>
+
+                <br>
+
+                <a href="{% url 'food_search' %}" class="back-btn">
+                    ← Back to Food Search
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 FoodWise-AI</p>
+        <p>Discover Food. Eat Smart. Live Healthy.</p>
+    </footer>
+
+</body>
+</html>

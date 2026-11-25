@@ -1,0 +1,140 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodWise-AI | Smart Food Discovery</title>
+
+    <link rel="stylesheet" href="{% static 'foodwise/css/style.css' %}">
+</head>
+
+<body>
+
+<!-- NAVIGATION BAR -->
+<header class="navbar">
+    <div class="logo">
+        🥗 FoodWise<span>-AI</span>
+    </div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'menu' %}">Restaurants</a>
+        <a href="{% url 'calorie_calculator' %}">Calorie Calculator</a>
+        <a href="{% url 'recommendations' %}">AI Diet Planner</a>
+        <a href="{% url 'nutrition' %}">Nutrition</a>
+    </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Eat Smart.<br>Live Healthy.</h1>
+
+        <p>
+            Discover healthy food, explore restaurant menus,
+            calculate your calories and get personalized
+            AI-powered diet recommendations.
+        </p>
+
+        <a href="{% url 'dashboard' %}" class="btn">
+            Explore FoodWise-AI →
+        </a>
+    </div>
+
+    <div class="hero-image">
+        <img
+            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900"
+            alt="Healthy fresh food bowl">
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features">
+    <h2>Explore Our Features</h2>
+
+    <p class="section-description">
+        Everything you need for a healthier lifestyle.
+    </p>
+
+    <div class="feature-container">
+
+        <div class="feature-card">
+            <div class="feature-icon">🍽️</div>
+            <h3>Restaurant Menu</h3>
+            <p>
+                Explore restaurants and discover delicious
+                food menus.
+            </p>
+            <a href="{% url 'menu' %}">Explore →</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔥</div>
+            <h3>Calorie Calculator</h3>
+            <p>
+                Calculate your daily calorie requirements
+                based on your body measurements and activity.
+            </p>
+            <a href="{% url 'calorie_calculator' %}">Calculate →</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>AI Diet Planner</h3>
+            <p>
+                Get personalized meal schedules for weight
+                loss, weight gain and fitness goals.
+            </p>
+            <a href="{% url 'recommendations' %}">Get Started →</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🥑</div>
+            <h3>Food Nutrition</h3>
+            <p>
+                Discover calories, proteins, carbohydrates
+                and other nutritional information.
+            </p>
+            <a href="{% url 'nutrition' %}">Explore →</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-us">
+    <h2>Why Choose FoodWise-AI?</h2>
+
+    <div class="why-container">
+
+        <div>
+            <h3>🥗 Healthy Choices</h3>
+            <p>Make better food choices every day.</p>
+        </div>
+
+        <div>
+            <h3>⚡ Smart Technology</h3>
+            <p>Use intelligent tools for your food journey.</p>
+        </div>
+
+        <div>
+            <h3>💚 Better Lifestyle</h3>
+            <p>Build healthy eating habits and stay fit.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <h2>FoodWise-AI</h2>
+    <p>Eat Healthy. Stay Fit. Live Better.</p>
+    <p>© 2026 FoodWise-AI. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

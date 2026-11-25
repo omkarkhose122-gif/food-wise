@@ -1,0 +1,243 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodWise-AI | Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'foodwise/css/style.css' %}">
+
+    <style>
+        .dashboard {
+            padding: 50px 7%;
+            min-height: 80vh;
+        }
+
+        .dashboard-header {
+            margin-bottom: 35px;
+        }
+
+        .dashboard-header h1 {
+            color: #176b3a;
+            font-size: 36px;
+        }
+
+        .dashboard-header p {
+            color: #758078;
+            margin-top: 8px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #e5eee7;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-card .icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card h2 {
+            color: #176b3a;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .dashboard-card p {
+            color: #758078;
+            font-size: 14px;
+            min-height: 65px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card a {
+            display: inline-block;
+            text-decoration: none;
+            background: #198754;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 7px;
+            font-weight: 600;
+        }
+
+        .dashboard-card a:hover {
+            background: #116b40;
+        }
+
+        @media(max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<header class="navbar">
+
+    <div class="logo">
+        🥗 FoodWise<span>-AI</span>
+    </div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'menu' %}">Restaurants</a>
+        <a href="{% url 'calorie_calculator' %}">Calories</a>
+        <a href="{% url 'recommendations' %}">AI Diet Planner</a>
+        <a href="{% url 'nutrition' %}">Nutrition</a>
+    </nav>
+
+</header>
+
+<!-- DASHBOARD -->
+<main class="dashboard">
+
+    <div class="dashboard-header">
+        <h1>Welcome to FoodWise-AI! 👋</h1>
+
+        <p>
+            Your personal smart food and nutrition management dashboard.
+            Choose a feature below to get started.
+        </p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <!-- RESTAURANTS -->
+        <div class="dashboard-card">
+            <div class="icon">🍽️</div>
+
+            <h2>My Restaurants</h2>
+
+            <p>
+                Discover restaurants and explore their
+                available food menus.
+            </p>
+
+            <a href="{% url 'menu' %}">View Restaurants →</a>
+        </div>
+
+        <!-- CALORIE CALCULATOR -->
+        <div class="dashboard-card">
+            <div class="icon">🔥</div>
+
+            <h2>Calorie Calculator</h2>
+
+            <p>
+                Calculate your daily calorie requirements
+                using your body measurements.
+            </p>
+
+            <a href="{% url 'calorie_calculator' %}">
+                Calculate Calories →
+            </a>
+        </div>
+
+        <!-- AI DIET PLANNER -->
+        <div class="dashboard-card">
+            <div class="icon">🤖</div>
+
+            <h2>AI Diet Planner</h2>
+
+            <p>
+                Get meal recommendations according to
+                your health and fitness goals.
+            </p>
+
+            <a href="{% url 'recommendations' %}">
+                Create Diet Plan →
+            </a>
+        </div>
+
+        <!-- FOOD NUTRITION -->
+        <div class="dashboard-card">
+            <div class="icon">🥑</div>
+
+            <h2>Food Nutrition</h2>
+
+            <p>
+                Explore food calories, protein, fats,
+                carbohydrates and nutrients.
+            </p>
+
+            <a href="{% url 'nutrition' %}">
+                View Nutrition →
+            </a>
+        </div>
+
+        <!-- HEALTHY FOOD -->
+        <div class="dashboard-card">
+            <div class="icon">🥗</div>
+
+            <h2>Healthy Food Guide</h2>
+
+            <p>
+                Discover healthy food options and
+                improve your daily eating habits.
+            </p>
+
+            <a href="{% url 'nutrition' %}">
+                Explore Foods →
+            </a>
+        </div>
+
+        <!-- HOME -->
+        <div class="dashboard-card">
+            <div class="icon">🏠</div>
+
+            <h2>Home</h2>
+
+            <p>
+                Return to the FoodWise-AI homepage
+                and explore all available features.
+            </p>
+
+            <a href="{% url 'home' %}">
+                Go to Home →
+            </a>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <h2>FoodWise-AI</h2>
+    <p>Eat Healthy. Stay Fit. Live Better.</p>
+    <p>© 2026 FoodWise-AI. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diet Planner | FoodWise-AI</title>
+    <link rel="stylesheet" href="{% static 'foodwise/css/style.css' %}">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f4f8f3;
+            font-family: Arial, sans-serif;
+            color: #26352a;
+        }
+
+        .navbar {
+            background: #176b3a;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 8px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 45px auto;
+            padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .heading h1 {
+            color: #176b3a;
+            font-size: 34px;
+        }
+
+        .heading p {
+            color: #666;
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+
+        .plan-card {
+            background: white;
+            padding: 25px;
+            border-radius: 13px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+
+        .plan-card .emoji {
+            font-size: 45px;
+        }
+
+        .plan-card h2 {
+            color: #176b3a;
+        }
+
+        .plan-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .plan-card button {
+            background: #176b3a;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .plan-card button:hover {
+            background: #10532c;
+        }
+
+        .meal-plan {
+            display: none;
+            margin-top: 18px;
+            text-align: left;
+            background: #edf7ee;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.7;
+        }
+
+        .meal-plan h3 {
+            color: #176b3a;
+        }
+
+        .information {
+            background: white;
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 12px;
+            line-height: 1.7;
+        }
+
+        @media(max-width: 700px) {
+            .heading h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">FoodWise-AI</a>
+    <div>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'menu' %}">Restaurants</a>
+        <a href="{% url 'calorie_calculator' %}">Calorie Calculator</a>
+        <a href="{% url 'recommendations' %}">Diet Planner</a>
+        <a href="{% url 'nutrition' %}">Nutrition</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <div class="heading">
+        <h1>AI Diet Planner</h1>
+        <p>Explore sample meal plans for different health and fitness goals.</p>
+    </div>
+
+    <div class="plans">
+
+        <div class="plan-card">
+            <div class="emoji">🥗</div>
+            <h2>Weight Loss</h2>
+            <p>Explore balanced meals with vegetables, protein and fibre.</p>
+            <button onclick="showPlan('weight-loss')">View Meal Plan</button>
+
+            <div class="meal-plan" id="weight-loss">
+                <h3>Sample Daily Meal Plan</h3>
+                <p><strong>Breakfast:</strong> Vegetable poha and curd</p>
+                <p><strong>Lunch:</strong> Roti, dal and mixed vegetables</p>
+                <p><strong>Snack:</strong> One seasonal fruit</p>
+                <p><strong>Dinner:</strong> Vegetable khichdi and salad</p>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="emoji">🍚</div>
+            <h2>Weight Gain</h2>
+            <p>Explore energy-rich meals with healthy fats and protein.</p>
+            <button onclick="showPlan('weight-gain')">View Meal Plan</button>
+
+            <div class="meal-plan" id="weight-gain">
+                <h3>Sample Daily Meal Plan</h3>
+                <p><strong>Breakfast:</strong> Banana, milk and oats</p>
+                <p><strong>Lunch:</strong> Rice, dal, paneer and vegetables</p>
+                <p><strong>Snack:</strong> Nuts and yoghurt</p>
+                <p><strong>Dinner:</strong> Roti, vegetable curry and curd</p>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="emoji">💪</div>
+            <h2>Muscle Gain</h2>
+            <p>Explore meals containing protein and balanced carbohydrates.</p>
+            <button onclick="showPlan('muscle-gain')">View Meal Plan</button>
+
+            <div class="meal-plan" id="muscle-gain">
+                <h3>Sample Daily Meal Plan</h3>
+                <p><strong>Breakfast:</strong> Eggs or paneer with whole-wheat toast</p>
+                <p><strong>Lunch:</strong> Rice, dal, paneer or chicken and vegetables</p>
+                <p><strong>Snack:</strong> Milk and roasted chana</p>
+                <p><strong>Dinner:</strong> Roti, tofu or chicken and vegetables</p>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="emoji">⚖️</div>
+            <h2>Weight Maintenance</h2>
+            <p>Explore balanced meals for a varied everyday diet.</p>
+            <button onclick="showPlan('maintenance')">View Meal Plan</button>
+
+            <div class="meal-plan" id="maintenance">
+                <h3>Sample Daily Meal Plan</h3>
+                <p><strong>Breakfast:</strong> Idli and sambar</p>
+                <p><strong>Lunch:</strong> Roti, dal, rice and vegetables</p>
+                <p><strong>Snack:</strong> Fruit and a handful of nuts</p>
+                <p><strong>Dinner:</strong> Vegetable pulao and curd</p>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="information">
+        <h2>Healthy Eating Tips</h2>
+        <ul>
+            <li>Eat a variety of fruits and vegetables.</li>
+            <li>Include protein-rich foods in your meals.</li>
+            <li>Drink enough water throughout the day.</li>
+            <li>Choose balanced meals and regular meal times.</li>
+            <li>Adjust portions to your individual needs.</li>
+        </ul>
+        <p><strong>Important:</strong> These are sample meal ideas, not personalized AI-generated medical diets. Individual needs vary.</p>
+    </section>
+
+</main>
+
+<script>
+    function showPlan(planId) {
+        const selectedPlan = document.getElementById(planId);
+        const isVisible = selectedPlan.style.display === "block";
+
+        document.querySelectorAll(".meal-plan").forEach(function(plan) {
+            plan.style.display = "none";
+        });
+
+        if (!isVisible) {
+            selectedPlan.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>

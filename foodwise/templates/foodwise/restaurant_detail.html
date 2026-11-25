@@ -1,0 +1,59 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant.name }} | FoodWise-AI</title>
+    <link rel="stylesheet" href="{% static 'foodwise/css/style.css' %}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="/" class="logo">FoodWise<span>-AI</span></a>
+        <a href="/" class="login-btn">Back to Home</a>
+    </header>
+
+    <section class="section">
+        <h1>{{ restaurant.name }}</h1>
+
+        <p>{{ restaurant.description }}</p>
+        <p>{{ restaurant.address }}</p>
+        <p>Phone: {{ restaurant.phone }}</p>
+    </section>
+
+    <section class="section foods-section">
+        <h2>Restaurant Food Menu</h2>
+
+        <div class="cards">
+
+            {% for food in food_items %}
+
+            <div class="card">
+                <div class="food-image">🍽️</div>
+
+                <h3>{{ food.name }}</h3>
+                <p>{{ food.description }}</p>
+                <p>Price: ₹{{ food.price }}</p>
+                <p>Category: {{ food.category }}</p>
+                <p>Calories: {{ food.calories }} kcal</p>
+            </div>
+
+            {% empty %}
+
+            <p>No food items available in this restaurant.</p>
+
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <footer>
+        <h3>FoodWise-AI</h3>
+        <p>Discover Better. Eat Smarter. Live Healthier.</p>
+    </footer>
+
+</body>
+</html>
