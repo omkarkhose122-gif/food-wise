@@ -26,7 +26,6 @@ DEBUG = 'RENDER' not in os.environ
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '.onrender.com',
 ]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get(
@@ -36,9 +35,7 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get(
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.onrender.com',
-]
+CSRF_TRUSTED_ORIGINS = []
 
 if RENDER_EXTERNAL_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(
@@ -64,8 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-
-    'foodwise',
+    'foodwise.apps.FoodwiseConfig',
 ]
 
 
@@ -75,19 +71,12 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
-
     'django.middleware.common.CommonMiddleware',
-
     'django.middleware.csrf.CsrfViewMiddleware',
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-
     'django.contrib.messages.middleware.MessageMiddleware',
-
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -106,13 +95,10 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
         'DIRS': [
             BASE_DIR / 'templates',
         ],
-
         'APP_DIRS': True,
-
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -139,17 +125,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
-
+    # Production database (for example, Render PostgreSQL)
     DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600
         )
     }
 
 else:
-
+    # Local MySQL database
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -157,10 +142,13 @@ else:
             'USER': 'foodwise_user',
             'PASSWORD': os.environ.get(
                 'LOCAL_DB_PASSWORD',
-                ''
+                'FoodWise@123'
             ),
             'HOST': 'localhost',
             'PORT': '3306',
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
         }
     }
 
@@ -205,21 +193,20 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'foodwise' / 'static',
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # ==========================================
-# STORAGE CONFIGURATION
+# FILE STORAGE CONFIGURATION
 # ==========================================
 
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
     },
-
     'staticfiles': {
         'BACKEND': (
             'whitenoise.storage.'
@@ -243,3 +230,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # ==========================================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = 'dashboard'
+
+LOGOUT_REDIRECT_URL = 'home'

@@ -1,0 +1,73 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FoodWise AI</title>
+    <link rel="stylesheet" href="{% static 'foodwise/auth.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-card">
+
+        <h1>🥗 FoodWise <span>AI</span></h1>
+        <h2>Welcome Back!</h2>
+        <p>Login to access your personalized food dashboard.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="success-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            {% if form.errors %}
+                <p class="error-message">
+                    Invalid username or password. Please try again.
+                </p>
+            {% endif %}
+
+            <button type="submit" class="auth-btn">Login</button>
+        </form>
+
+        <p class="auth-link">
+            Don't have an account?
+            <a href="{% url 'register' %}">Create Account</a>
+        </p>
+
+        <a class="back-home" href="{% url 'home' %}">
+            Back to Home
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

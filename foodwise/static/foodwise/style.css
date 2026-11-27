@@ -1,0 +1,797 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #263b2c;
+    background: #ffffff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 7%;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #245b35;
+}
+
+.logo span {
+    color: #75b843;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #39834a;
+}
+
+.login-btn,
+.register-btn,
+.primary-btn,
+.secondary-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.login-btn {
+    border: 1px solid #39834a;
+    color: #39834a !important;
+}
+
+.register-btn,
+.primary-btn {
+    background: #39834a;
+    color: #ffffff !important;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    padding: 80px 7%;
+    background: #f2faf2;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.tagline {
+    color: #39834a;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 5vw, 60px);
+    margin: 20px 0;
+    color: #245b35;
+    line-height: 1.15;
+}
+
+.hero h1 span {
+    color: #75b843;
+}
+
+.hero p {
+    color: #666;
+    line-height: 1.8;
+    font-size: 17px;
+    max-width: 550px;
+    margin-bottom: 30px;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.secondary-btn {
+    border: 1px solid #39834a;
+    color: #39834a;
+}
+
+.features {
+    padding: 75px 7%;
+    text-align: center;
+}
+
+.features h2,
+.why-us h2 {
+    font-size: 34px;
+    color: #245b35;
+    margin-bottom: 15px;
+}
+
+.section-description {
+    color: #777;
+    margin-bottom: 40px;
+}
+
+.feature-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.feature-card {
+    padding: 30px 20px;
+    border: 1px solid #e5eee5;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.feature-icon {
+    font-size: 40px;
+    margin-bottom: 18px;
+}
+
+.feature-card h3 {
+    color: #245b35;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #777;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.why-us {
+    text-align: center;
+    background: #f2faf2;
+    padding: 75px 7%;
+}
+
+.why-us p {
+    color: #666;
+    line-height: 1.8;
+    max-width: 650px;
+    margin: 15px auto 30px;
+}
+
+.footer {
+    background: #204d2d;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px;
+    line-height: 2;
+}
+
+@media (max-width: 900px) {
+    .feature-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .feature-container {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 50px 6%;
+    }
+
+    .hero-buttons {
+        flex-wrap: wrap;
+    }
+}
+
+/* =================================
+   DASHBOARD PAGE
+================================= */
+
+.dashboard {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 55px 7%;
+    min-height: 75vh;
+}
+
+.dashboard-header {
+    margin-bottom: 35px;
+}
+
+.dashboard-header h1 {
+    color: #245b35;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.dashboard-header p {
+    color: #777;
+    line-height: 1.7;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    padding: 30px 25px;
+    border: 1px solid #e5eee5;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+    transition: 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.09);
+}
+
+.dashboard-card .icon {
+    font-size: 38px;
+    margin-bottom: 18px;
+}
+
+.dashboard-card h2,
+.dashboard-card h3 {
+    color: #245b35;
+    margin-bottom: 12px;
+}
+
+.dashboard-card p {
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.dashboard-card a {
+    display: inline-block;
+    background: #39834a;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dashboard-card a:hover {
+    background: #286638;
+}
+
+/* =================================
+   FOOD MENU PAGE
+================================= */
+
+.menu-section {
+    padding: 55px 7%;
+    min-height: 75vh;
+    background: #f8fcf8;
+}
+
+.menu-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.menu-heading h1 {
+    color: #245b35;
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.menu-heading p {
+    color: #777;
+    line-height: 1.7;
+}
+
+.search-box {
+    max-width: 550px;
+    margin: 0 auto 35px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 15px 18px;
+    border: 1px solid #d6e2d8;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #39834a;
+    box-shadow: 0 0 0 3px rgba(57,131,74,0.1);
+}
+
+.restaurant-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.restaurant-card {
+    background: #ffffff;
+    border: 1px solid #e5eee5;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.09);
+}
+
+.restaurant-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.restaurant-info {
+    padding: 20px;
+}
+
+.restaurant-info h2,
+.restaurant-info h3 {
+    color: #245b35;
+    margin-bottom: 10px;
+}
+
+.restaurant-info p {
+    color: #777;
+    line-height: 1.6;
+}
+
+.food-menu {
+    padding: 0 20px 20px;
+}
+
+.food-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf1ed;
+    color: #444;
+}
+
+.food-item:last-child {
+    border-bottom: none;
+}
+
+.no-results {
+    text-align: center;
+    color: #777;
+    padding: 30px;
+}
+
+/* =================================
+   RESPONSIVE DASHBOARD AND MENU
+================================= */
+
+@media (max-width: 900px) {
+    .dashboard-grid,
+    .restaurant-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-grid,
+    .restaurant-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard {
+        padding: 35px 5%;
+    }
+
+    .menu-section {
+        padding: 35px 5%;
+    }
+
+    .dashboard-header h1,
+    .menu-heading h1 {
+        font-size: 27px;
+    }
+}
+
+/* =================================
+   NUTRITION DASHBOARD
+================================= */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 7%;
+    min-height: 75vh;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.heading h1 {
+    color: #245b35;
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.heading p {
+    color: #777;
+    line-height: 1.7;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.table-wrapper th {
+    background: #39834a;
+    color: white;
+    padding: 16px;
+    text-align: left;
+}
+
+.table-wrapper td {
+    padding: 15px 16px;
+    border-bottom: 1px solid #edf1ed;
+    color: #555;
+}
+
+.table-wrapper tr:hover {
+    background: #f2faf2;
+}
+
+.food-name {
+    font-weight: bold;
+    color: #245b35 !important;
+}
+
+.no-results {
+    text-align: center;
+    color: #777;
+    padding: 25px;
+}
+
+.note {
+    background: #f2faf2;
+    border-left: 4px solid #39834a;
+    padding: 18px;
+    margin-top: 25px;
+    border-radius: 8px;
+    color: #526b56;
+    line-height: 1.7;
+}
+
+/* =================================
+   AI RECOMMENDATIONS
+================================= */
+
+.plans {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.plan-card {
+    background: white;
+    border: 1px solid #e5eee5;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.09);
+}
+
+.emoji {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.plan-card h2,
+.plan-card h3 {
+    color: #245b35;
+    margin-bottom: 12px;
+}
+
+.plan-card p {
+    color: #777;
+    line-height: 1.7;
+}
+
+.meal-plan {
+    margin-top: 18px;
+    padding: 16px;
+    background: #f2faf2;
+    border-radius: 10px;
+    line-height: 1.8;
+    color: #526b56;
+}
+
+.information {
+    margin-top: 35px;
+    padding: 25px;
+    background: #f2faf2;
+    border-radius: 14px;
+    line-height: 1.8;
+    color: #526b56;
+}
+
+.information h2,
+.information h3 {
+    color: #245b35;
+    margin-bottom: 12px;
+}
+
+/* =================================
+   RESPONSIVE NUTRITION & PLANS
+================================= */
+
+@media (max-width: 700px) {
+    .plans {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 35px 5%;
+    }
+
+    .heading h1 {
+        font-size: 27px;
+    }
+}
+
+/* =================================
+   CALORIE CALCULATOR
+================================= */
+
+.calculator-container {
+    max-width: 750px;
+    margin: 50px auto;
+    padding: 35px;
+    background: #ffffff;
+    border: 1px solid #e5eee5;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.calculator-container h1,
+.calculator-container h2 {
+    color: #245b35;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.description {
+    text-align: center;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.calculator-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.calculator-container label {
+    font-weight: 600;
+    color: #354b38;
+}
+
+.calculator-container input,
+.calculator-container select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d6e2d8;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.calculator-container input:focus,
+.calculator-container select:focus {
+    border-color: #39834a;
+    box-shadow: 0 0 0 3px rgba(57,131,74,0.1);
+}
+
+.calculator-container button {
+    padding: 14px;
+    background: #39834a;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.calculator-container button:hover {
+    background: #286638;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 22px;
+    background: #f2faf2;
+    border-left: 5px solid #39834a;
+    border-radius: 10px;
+    color: #245b35;
+    line-height: 1.8;
+}
+
+.note {
+    margin-top: 20px;
+    color: #777;
+    line-height: 1.7;
+}
+
+/* =================================
+   RESTAURANT DETAIL PAGE
+================================= */
+
+.section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 45px 7%;
+}
+
+.section h1,
+.section h2 {
+    color: #245b35;
+    margin-bottom: 18px;
+}
+
+.section p {
+    color: #777;
+    line-height: 1.8;
+}
+
+.foods-section {
+    background: #f8fcf8;
+    max-width: none;
+}
+
+.foods-section > h2,
+.foods-section > p,
+.foods-section .cards {
+    max-width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e5eee5;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.09);
+}
+
+.food-image {
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f2faf2;
+    font-size: 55px;
+    padding: 20px;
+}
+
+.card h3 {
+    color: #245b35;
+    margin: 18px;
+}
+
+.card p {
+    color: #777;
+    margin: 0 18px 18px;
+    line-height: 1.6;
+}
+
+/* =================================
+   RESPONSIVE CALCULATOR & RESTAURANT
+================================= */
+
+@media (max-width: 700px) {
+    .calculator-container {
+        margin: 25px 5%;
+        padding: 23px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 30px 5%;
+    }
+}
